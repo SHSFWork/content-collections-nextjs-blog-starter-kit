@@ -1,42 +1,61 @@
-import { format, parseISO } from "date-fns";
-import { allWritings } from "contentlayer/generated";
-import { Mdx } from "@/components/mdx";
+import Post from "@/components/post";
+import { allPosts } from "content-collections";
+import { notFound } from "next/navigation";
 
-export const generateStaticParams = async () =>
-  allWritings.map((post) => ({ slug: post._raw.flattenedPath }));
-
-export const generateMetadata = ({ params }: { params: { slug: string } }) => {
-  const post = allWritings.find(
-    (post) => post._raw.flattenedPath === params.slug
-  );
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
-  return { title: post.title };
+type Props = {
+  params: Promise<{
+    slug: string;
+  }>;
 };
 
-const PostLayout = ({ params }: { params: { slug: string } }) => {
-  const post = allWritings.find(
-    (post) => post._raw.flattenedPath === params.slug
-  );
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
+const PostPage = async ({ params }: Props) => {
+  const resolvedParams = await params;
+
+  const post = allPosts.find((p) => p._meta.path === resolvedParams.slug);
+  if (!post) return notFound();
 
   return (
-    <article className="mx-auto max-w-xl py-8">
-      <div className="mb-8 text-center">
-        <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(post.date), "LLLL d, yyyy")}
-        </time>
-        <h1 className="text-3xl font-bold">{post.title}</h1>
-      </div>
-      <Mdx code={post.body.code} />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(post.structuredData),
-        }}
-      />
-    </article>
+    <>
+      <Post post={post} />
+    </>
   );
 };
 
-export default PostLayout;
+export const generateStaticParams = async () => {
+  return allPosts.map((post) => ({
+    slug: post._meta.path,
+  }));
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const resolvedParams = await params;
+
+  const post = allPosts.find((p) => p._meta.path === resolvedParams.slug);
+  if (!post) {
+    return;
+  }
+
+  return {
+    title: post.title,
+    description: post.summary,
+    // openGraph: {
+    //   title: post.title,
+    //   description: post.summary,
+    //   type: "article",
+    //   images: [
+    //     {
+    //       url: `/og?title=${encodeURI(post.title)}&description=${encodeURI(
+    //         post.summary
+    //       )}`,
+    //       width: 1200,
+    //       height: 630,
+    //       alt: post.title,
+    //     },
+    //   ],
+    // },
+  };
+};
+
+export const dynamicParams = false;
+
+export default PostPage;

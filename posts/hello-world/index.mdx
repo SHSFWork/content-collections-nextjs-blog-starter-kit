@@ -1,0 +1,85 @@
+---
+title: Hello world
+summary: This is my first post!
+date: 2025-04-10
+image: https://images.unsplash.com/photo-1461958508236-9a742665a0d5
+---
+
+# Heading 1
+
+This is a **sample** MDX file. Below you can find examples of different content types.
+
+## Heading 2
+
+### Heading 3
+
+An example of a paragraph:
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+
+An example of a list:
+
+- List item 1
+- List item 2
+  - Sub-list item 1
+  - Sub-list item 2
+- List item 3
+
+An example of a numbered list:
+
+1. First item
+2. Second item
+3. Third item
+
+An example of a code block:
+
+```bash pnpm
+pnpm add -D rehype-img-size
+```
+
+```bash yarn
+yarn add -D rehype-img-size
+```
+
+```bash npm
+npm install --save-dev rehype-img-size
+```
+
+Inline code example: `const foo = 'bar';asdasdasd asda asd asd asd as d`
+
+An example of a quote:
+
+> This is an example of a quote.
+
+An example of a link: [Google](https://www.google.com)
+
+An example of an image:
+![Sample Image](./assets/logo.png)
+
+Examples of JSX components:
+
+An example of a table:
+
+| Heading 1 | Heading 2 |
+| --------- | --------- |
+| Cell 1    | Cell 2    |
+| Cell 3    | Cell 4    |
+
+```ts
+type CalendarEvent = {
+  summary: string;
+  description: string | undefined;
+  location?: string;
+  date: {
+    start: Date;
+    end: Date | undefined;
+  };
+};
+```
+
+There are three problems in the `CalendarEvent` type.
+
+1. [The description is a union type that can be undefined](focus://3[23:33])
+2. [Location is an optional property and can be undefined as well](focus://4[11])
+3. [The end date is a union type that is inside a nested object and can be undefined as well](focus://7[15:25])
+
+Here you can find most of the basic examples that can be used in MDX files. Since MDX files support both Markdown and JSX, they are quite flexible and powerful.
