@@ -1,4 +1,4 @@
-🚀 Next.js Blog Starter Kit with Content Collections
+# 🚀 Next.js Blog Starter Kit with Content Collections
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
