@@ -6,6 +6,8 @@
 
 A minimal, scalable, and production-ready starter kit for building blog-based websites using Next.js App Router, Contentlayer, TypeScript, Tailwind CSS, and Shadcn UI.
 
+![Screenshot](./public/ss.png)
+
 ## Features
 
 - 📚 Contentlayer-powered Markdown/MDX blog collections
